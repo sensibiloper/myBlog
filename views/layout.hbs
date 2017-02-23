@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>Sensibiloper's Blog</title>
+    {{#if showTests}}
+      <link rel="stylesheet" href="/vendor/mocha.css">
+    {{/if}}
+
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+
+    <!-- 부트스트랩 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <script src="../assets/js/hover.zoom.js"></script>
+    <script src="../assets/js/hover.zoom.conf.js"></script>
+    {{#if isLogin}}
+      <link rel="stylesheet" href="../assets/css/sign.css">
+    {{/if}}
+
+  </head>
+  <body>
+    <!-- 페이지별 테스트 -->
+    {{#if showTests}}
+      <div id="mocha"></div>
+      <script src="/vendor/mocha.js"></script>
+      <script src="/vendor/chai.js"></script>
+      <script>
+        console.log("testing...");
+        mocha.ui('tdd');
+        var assert = chai.assert;
+      </script>
+      <script src="/qa/tests-global.js"></script>
+      {{#if pageTestScript}}
+        <script src="{{pageTestScript}}"></script>
+      {{/if}}
+      <script>mocha.run();</script>
+    {{/if}}
+    <!-- 페이지별 테스트 -->
+
+
+    <!-- Static navbar -->
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">SENSIBILOPER</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/api/work">Work</a></li>
+            <li><a href="/api/work-detail">About</a></li>
+            <li><a href="/api/blog">STUDY</a></li>
+            <li><a href="/api/blog">Blog</a></li>
+            <li><a href="/api/contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <!-- 내용 -->
+    {{{body}}}
+
+    <!-- footer -->
+    <div id="footer">
+    		<div class="container">
+    			<div class="row">
+    				<div class="col-lg-4">
+    					<h4>My Bunker</h4>
+    					<p>
+    						sensibiloper@gmail.com,<br/>
+    						Seoul, Korea.
+    					</p>
+    				</div><!-- /col-lg-4 -->
+
+    				<div class="col-lg-4">
+    					<h4>My Links</h4>
+    					<p>
+    						<a href="#">github</a><br/>
+    					</p>
+    				</div><!-- /col-lg-4 -->
+
+    				<div class="col-lg-4">
+    					<h4>About SENSIBILOPER</h4>
+    					<p>
+                경영학을 전공하고 인문학에 관심이 많은 개발자 <br />
+                풀스택으로 개발자를 꿈꾸지만 이도저도 아닌 듯<br />
+                현재 Node기반 프로젝트에 관심 중..
+              </p>
+    				</div><!-- /col-lg-4 -->
+
+    			</div>
+
+    		</div>
+    	</div>
+
+
+  </body>
+</html>
