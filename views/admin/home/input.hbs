@@ -1,0 +1,14 @@
+    <div class="col-lg-8 col-lg-offset-2">
+      <form method="post">
+        <input type="hidden" name="_method" value="put" />
+        <p><img src="../assets/img/user.png" width="50px" height="50px"> <ba>{{user}}</ba></p>
+        <p><bd>{{date}}</bd></p>
+        <p><input type="text"  class="form-control" name="subject" value="{{subject}}"></p>
+        <textarea class="form-control" name="text" rows="10">{{text}}</textarea>
+        <br />
+        <p>
+          <button type="submit" class="btn btn-primary btn-md">수정</button>
+          <button type="reset" class="btn btn-default btn-md">취소</button>
+        </p>
+      </form>
+    </div>
