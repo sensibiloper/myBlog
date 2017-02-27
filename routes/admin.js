@@ -25,6 +25,8 @@ router.get('/',function(req, res, next){
   res.redirect('/index');
 });
 
+router.use('/study',require('./admin/study'));
+
 router.get('/index',function(req,res,next){
     res.render('admin/index');
 });
@@ -66,11 +68,9 @@ router.get('/home', function(req, res, next){
 router.post('/home', function(req, res){
   Q.ninvoke(pool, 'getConnection')
   .then(function(connection){
-    var text = req.body.text.replace(/\n/g,"<br />");
-
     var params = {
       home_subject : req.body.subject,
-      home_text : text
+      home_text : req.body.text
      };
 
     var query = 'update blog_home set home_subject = '+mysql.escape(params.home_subject);

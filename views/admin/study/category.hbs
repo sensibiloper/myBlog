@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="row">
+
+      <div class="col-md-6">
+        <form id="form_div">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>DIV_IDX</th>
+                <th>name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-idx='1'>1</td>
+                <td data-name='java'>java</td>
+              </tr>
+              <tr>
+                <td data-idx='2'>2</td>
+                <td data-name='c'>c</td>
+              </tr>
+              <tr>
+                <td data-idx='3'>3</td>
+                <td data-name='go'>go</td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+
+        <form id="form_div_input"action="/admin/study/div" method="post">
+          <input type="hidden" name="DIV_IDX" value="-1">
+          <div class="form-group">
+            <label for="exampleInputName2">DIV 추가 및 변경</label>
+            <input type="text" class="form-control" name="DIV_NAME">
+          </div>
+          <button type="submit" class="btn btn-default">저장</button>
+          <button type="reset" class="btn btn-default">reset</button>
+        </form>
+        <hr>
+      </div>
+
+
+
+      <div class="col-md-6">
+        <form id="form_category">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>CATEGORY_IDX</th>
+                <th>DIV_NAME</th>
+                <th>name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-idx>1</td>
+                <td data-div>java</td>
+                <td data-name>spring</td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+
+        <form class="" action="index.html" method="post">
+          <div class="form-group">
+            <label for="exampleInputName2">선택 Category Name 변경</label>
+            <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+          </div>
+          <button type="submit" class="btn btn-default">수정</button>
+        </form>
+        <hr>
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#form_div').find('tbody').children().on('click',function(e){
+      e.preventDefault();
+      var _$ = $("#form_div_input");
+      _$.find('input[name="DIV_IDX"]')[0].value = this.children[0].getAttribute('data-idx');
+      _$.find('input[name="DIV_NAME"]')[0].value = this.children[1].getAttribute('data-name');
+    });
+    $("#form_div_input button[type='reset']").on('click',function(e){
+      console.log('click');
+      $("#form_div_input").find('input[name="DIV_IDX"]')[0].value = -1;
+    });
+
+    $('#form_category').find('tbody').children().on('click',function(e){
+      e.preventDefault();
+      var _$ = $("#form_div_input");
+      _$.find('input[name="DIV_IDX"]')[0].value = this.children[0].getAttribute('data-idx');
+      _$.find('input[name="DIV_NAME"]')[0].value = this.children[1].getAttribute('data-name');
+    });
+
+
+  });
+</script>

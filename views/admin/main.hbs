@@ -49,7 +49,18 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="/admin/home">HOME 관리</a></li>
             <li><a href="#">WORK 관리</a></li>
-            <li><a href="#">STUDY 관리</a></li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">STUDY관리 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/admin/study/write">STUDY 작성</a></li>
+                <li><a href="/admin/study/list">STUDY list</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">설정</li>
+                <li><a href="/admin/study/category">STUDY category</a></li>
+              </ul>
+            </li>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

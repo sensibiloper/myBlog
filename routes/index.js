@@ -16,6 +16,8 @@ router.get('/', function(req, res, next) {
     .then(function(result){
       var subject = result[0][0].home_subject;
       var text = result[0][0].home_text;
+
+      text = text.replace(/\n/g, "<br />");
       res.render('index',
                   { subject : subject,
                     text : text
