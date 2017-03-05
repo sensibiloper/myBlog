@@ -1,0 +1,108 @@
+<div class="container">
+  <form action="/admin/study/form_write" id="form_write">
+    <input type="hidden" name="STUDY_IDX" value="{{data.STUDY_IDX}}">
+    <input type="hidden" id="CATEGORY_IDX" name="CATEGORY_IDX" value="{{#if data.UPDATE}}{{data.CATEGORY_IDX}}{{else}}-1{{/if}}">
+    <div class="row">
+      <!-- Single button -->
+      <div class=".col-md-8">
+        <div class="btn-group" id="study_div">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <b>{{#if data.UPDATE}}{{data.DIV_NAME}}{{else}}대분류{{/if}}</b> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu"></ul>
+        </div>
+        <!-- Single button -->
+        <div class="btn-group" id="study_cate">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <b>{{#if data.UPDATE}}{{data.CATEGORY_NAME}}{{else}}소분류{{/if}}</b> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>대분류를 선택하세요</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="input-group">
+        <span class="input-group-addon">제목</span>
+        <input type="text" class="form-control" name="STUDY_SUBJECT" require placeholder="study 제목을 입력하세요" value="{{data.STUDY_SUBJECT}}">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">부제목</span>
+        <input type="text" class="form-control" name="STUDY_COMMENT" require placeholder="사용하는 기술을 기술하세요"
+        value="{{data.STUDY_COMMENT}}">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <textarea class="form-control" name="STUDY_CONTENT" rows="6">{{data.STUDY_CONTENT}}</textarea>
+    </div>
+    <hr>
+    <div>
+      <button type="submit" id="btn_submit" class="btn btn-sm btn-primary">저장</button>
+      <button type="reset" class="btn btn-sm btn-default">취소</button>
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#study_div button").on('click',function(e){
+      e.preventDefault();
+      console.log('click');
+      $.get('/admin/study/ajax_study_div', function(data){
+        var html = "";
+        for(var i=0, len=data.length; i<len; i++){
+          html += "<li data-idx='"+data[i].DIV_IDX+"'><a href='javascript:void(0)'>"+data[i].DIV_NAME+"</a></li>";
+        }
+        $("#study_div ul").empty().append(html);
+        $("#study_div ul li").on('click',function(e){
+          e.preventDefault();
+          $("#study_div button b").empty().append(this.children[0].innerText);
+          var idx = this.getAttribute('data-idx');
+          console.log(this.children);
+          $.post('/admin/study/ajax_study_cate/',{idx:idx},function(data){
+            console.log(data);
+            html = "";
+            for(var i=0, len=data.length; i<len; i++){
+              html += "<li data-cate-idx='"+data[i].CATEGORY_IDX+"'><a href='javascript:void(0)'>"+data[i].CATEGORY_NAME+"</a></li>";
+            }
+            $("#study_cate ul").empty().append(html);
+
+            $("#study_cate ul li").on('click',function(e){
+              $("#study_cate button b").empty().append(this.children[0].innerText);
+              $("#CATEGORY_IDX").val(this.getAttribute('data-cate-idx'));
+            });
+          });
+        });
+      });
+    });
+
+    $("#form_write").on('submit',function(e){
+      e.preventDefault();
+      console.log('submit');
+      var action = $(this).attr('action');
+      var params = $(this).serialize();
+
+      $.ajax({
+        url : action,
+        type : 'post',
+        data : params,
+        success: function(data){
+          console.log("data : ");
+          console.log(data);
+          if(data.save){
+
+          }else{
+            alert(data.message);
+          }
+        },
+        error :  function (err){
+          console.log('err : ' + err);
+        }
+      });
+
+      console.log($());
+    })
+  });
+</script>

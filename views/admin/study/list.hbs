@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>no</th>
+          <th>subject</th>
+          <th>comment</th>
+          <th>등록일</th>
+          <th>수정일</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each lists}}
+        <tr>
+          <td>{{STUDY_IDX}}</td>
+          <td><a href="/admin/study/write?idx={{STUDY_IDX}}">{{STUDY_SUBJECT}}</a></td>
+          <td>{{STUDY_COMMENT}}</td>
+          <td>{{CREATE_DATE}}</td>
+          <td>{{FIX_DATE}}</td>
+          <td><a href="/admin/study/delete/{{STUDY_IDX}}" class="btn btn-sm btn-danger">삭제</a></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

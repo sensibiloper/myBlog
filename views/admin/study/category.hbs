@@ -8,21 +8,17 @@
               <tr>
                 <th>DIV_IDX</th>
                 <th>name</th>
+                <th class="text-center">삭제</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td data-idx='1'>1</td>
-                <td data-name='java'>java</td>
-              </tr>
-              <tr>
-                <td data-idx='2'>2</td>
-                <td data-name='c'>c</td>
-              </tr>
-              <tr>
-                <td data-idx='3'>3</td>
-                <td data-name='go'>go</td>
-              </tr>
+              {{#each divs}}
+                <tr>
+                  <td data-idx='{{DIV_IDX}}'>{{DIV_IDX}}</td>
+                  <td data-name='{{DIV_NAME}}'>{{DIV_NAME}}</td>
+                  <td class="text-center"><a href="/admin/study/div/{{DIV_IDX}}/delete" class="btn btn-sm btn-danger">삭제</a></td>
+                </tr>
+              {{/each}}
             </tbody>
           </table>
         </form>
@@ -39,34 +35,31 @@
         <hr>
       </div>
 
-
-
       <div class="col-md-6">
         <form id="form_category">
           <table class="table table-hover">
             <thead>
-              <tr>
-                <th>CATEGORY_IDX</th>
-                <th>DIV_NAME</th>
-                <th>name</th>
-              </tr>
+                <tr>
+                  <th>CATEGORY_IDX</th>
+                  <th>DIV_NAME</th>
+                  <th>CATEGORY_NAME</th>
+                  <th>삭제</th>
+                </tr>
             </thead>
             <tbody>
-              <tr>
-                <td data-idx>1</td>
-                <td data-div>java</td>
-                <td data-name>spring</td>
-              </tr>
             </tbody>
           </table>
         </form>
 
-        <form class="" action="index.html" method="post">
+        <form id="form_category_input" action="/admin/study/categ" method="post">
+          <input type="hidden" name="CATEGORY_IDX" value="-1">
+          <input type="hidden" name="DIV_IDX" value="-1">
           <div class="form-group">
-            <label for="exampleInputName2">선택 Category Name 변경</label>
-            <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+            <label for="exampleInputName2">Category 추가 및 변경</label>
+            <input type="text" class="form-control" name="CATEGORY_NAME">
           </div>
-          <button type="submit" class="btn btn-default">수정</button>
+          <button type="submit" class="btn btn-default">저장</button>
+          <button type="reset" class="btn btn-default">reset</button>
         </form>
         <hr>
       </div>
@@ -77,19 +70,79 @@
     $('#form_div').find('tbody').children().on('click',function(e){
       e.preventDefault();
       var _$ = $("#form_div_input");
-      _$.find('input[name="DIV_IDX"]')[0].value = this.children[0].getAttribute('data-idx');
+      _$.find('input[name="DIV_IDX"]')[0].value = idx = this.children[0].getAttribute('data-idx');
       _$.find('input[name="DIV_NAME"]')[0].value = this.children[1].getAttribute('data-name');
+
+      $("#form_category_input").find('input[name="DIV_IDX"]')[0].value = idx;
+      $("#form_category_input").find('input[name="CATEGORY_IDX"]')[0].value = -1;
+
+
+      $.ajax({
+          url: '/admin/study/categ/'+idx,
+          type: 'get',
+          success :function(data){
+            var html = "";
+            for(var i=0, len=data.length;i<len;i++){
+              html += "<tr>";
+              html += "<td data-idx='"+data[i].CATEGORY_IDX+"'>"+data[i].CATEGORY_IDX+"</td>" +
+                      "<td data-div='"+data[i].DIV_IDX+"'>"+data[i].DIV_NAME+"</td>" +
+                      "<td data-name='"+data[i].CATEGORY_NAME+"'>"+data[i].CATEGORY_NAME+"</td>" +
+                      "<td><a href='/admin/study/categ/"+data[i].CATEGORY_IDX+"/delete' class='btn btn-sm btn-danger'>삭제</a></td>";
+
+              html += "</tr>";
+            }
+            $("#form_category").find('tbody').empty().append(html);
+
+            $('#form_category').find('tbody').children().on('click',function(e){
+              e.preventDefault();
+              console.log('click');
+              var category = $("#form_category_input");
+              console.log(this.children[0].getAttribute('data-idx'));
+              category.find('input[name="CATEGORY_IDX"]')[0].value = this.children[0].getAttribute('data-idx');
+              category.find('input[name="CATEGORY_NAME"]')[0].value = this.children[2].getAttribute('data-name');
+            });
+
+            $('#form_category').find('tbody').children().find('a').on('click',function(e){
+              e.preventDefault();
+              console.log(this.href);
+              $(location).attr('href', this.href);
+            });
+          }
+      });
     });
+
+    $('#form_div').find('tbody').children().find('a').on('click',function(e){
+      e.preventDefault();
+      console.log(this.href);
+      $(location).attr('href', this.href);
+    });
+
+
+
     $("#form_div_input button[type='reset']").on('click',function(e){
       console.log('click');
       $("#form_div_input").find('input[name="DIV_IDX"]')[0].value = -1;
     });
 
-    $('#form_category').find('tbody').children().on('click',function(e){
+    $("#form_category_input button[type='reset']").on('click',function(e){
+      console.log('click');
+      $("#form_category_input").find('input[name="CATEGORY_IDX"]')[0].value = -1;
+    });
+
+
+
+    $("#form_category_input").find('button[type="submit"]').on('click',function(e){
       e.preventDefault();
-      var _$ = $("#form_div_input");
-      _$.find('input[name="DIV_IDX"]')[0].value = this.children[0].getAttribute('data-idx');
-      _$.find('input[name="DIV_NAME"]')[0].value = this.children[1].getAttribute('data-name');
+      console.log($("#form_category_input").attr('action'));
+
+      $.ajax({
+        type : 'post',
+        url : this.parentNode.action,
+        data : $("#form_category_input").serialize(),
+        success : function(data){
+          $(location).attr('href', '/admin/study/category');
+        }
+      })
     });
 
 

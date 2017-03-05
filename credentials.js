@@ -13,7 +13,7 @@ module.exports = {
     connectionLimit : 3,
     host : 'localhost',
     user : 'sensibiloper',
-    database : 'blog',
+    database : 'sensibiloper',
     password : 'gPeisl613^'
   }
 };

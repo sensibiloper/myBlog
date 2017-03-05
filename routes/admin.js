@@ -73,8 +73,8 @@ router.post('/home', function(req, res){
       home_text : req.body.text
      };
 
-    var query = 'update blog_home set home_subject = '+mysql.escape(params.home_subject);
-        query += ', home_text='+mysql.escape(params.home_text);
+    var query = 'update blog_home set home_subject = ' + mysql.escape(params.home_subject);
+        query += ', home_text=' + mysql.escape(params.home_text);
         query += ', home_fd = now()';
         console.log(query);
     Q.ninvoke(connection, 'query', query)
