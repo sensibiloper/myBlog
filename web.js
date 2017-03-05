@@ -14,6 +14,7 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '8001');
 app.set('port', port);
+console.log('port : '+port);
 
 /**
  * Create HTTP server.
