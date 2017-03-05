@@ -10,7 +10,7 @@ module.exports = {
               password : '1234'
             },
   dbConfig : {
-    connectionLimit : 3,
+    connectionLimit : 5,
     host : 'localhost',
     user : 'sensibiloper',
     database : 'sensibiloper',
