@@ -35,7 +35,7 @@ router.get('/home', function(req, res, next){
   Q.ninvoke(pool, 'getConnection')
   .then(function(connection){
     var query = 'select home_subject, home_text, DATE_FORMAT(home_cd, "%Y-%c-%e %r")as home_cd,'
-                +'DATE_FORMAT(home_fd, "%Y-%c-%e %r")as home_fd from blog_home';
+                +'DATE_FORMAT(home_fd, "%Y-%c-%e %r")as home_fd from BLOG_HOME';
     Q.ninvoke(connection, 'query', query)
     .then(function(result){
 

@@ -9,7 +9,7 @@ router.get('/', function(req, res, next){
   var values = {};
   Q.ninvoke(pool, 'getConnection')
   .then(function(connection){
-    var query = 'select * from blog_study_div';
+    var query = 'select * from BLOG_STUDY_DIV';
     Q.ninvoke(connection, 'query', query)
     .then(function(result){
       values.div = result[0];
@@ -35,7 +35,7 @@ router.get('/', function(req, res, next){
       if(category_idx!= -1){
           console.log('category_idx = '+category_idx);
           query = 'select STUDY_IDX, STUDY_SUBJECT, STUDY_COMMENT, STUDY_CONTENT from BLOG_STUDY '+
-                  'where category_idx ='+mysql.escape(category_idx)+
+                  'where CATEGORY_IDX ='+mysql.escape(category_idx)+
                   ' ORDER BY STUDY_IDX DESC LIMIT '+page+', '+page_block;
       }else{
         if(!div_idx){
@@ -44,8 +44,8 @@ router.get('/', function(req, res, next){
         }else{
           console.log('all div');
           query = 'select STUDY_IDX, STUDY_SUBJECT, STUDY_COMMENT, STUDY_CONTENT from BLOG_STUDY ' +
-                  'where category_idx in (' +
-                    'select category_idx from blog_study_category where div_idx ='+
+                  'where CATEGORY_IDX in (' +
+                    'select CATEGORY_IDX from BLOG_STUDY_CATEGORY where DIV_IDX ='+
                       mysql.escape(div_idx)+') '+
                   'ORDER BY STUDY_IDX DESC LIMIT '+page+', '+page_block;
         }
@@ -68,9 +68,9 @@ router.get('/', function(req, res, next){
     var idx = req.body.idx;
     Q.ninvoke(pool, 'getConnection')
     .then(function(connection){
-      var query = "select CATEGORY_IDX, CATEGORY_NAME from blog_study_category";
+      var query = "select CATEGORY_IDX, CATEGORY_NAME from BLOG_STUDY_CATEGORY";
       if(idx){
-        query += " where div_idx = "+mysql.escape(idx);
+        query += " where DIV_IDX = "+mysql.escape(idx);
       }
       console.log(query);
       Q.ninvoke(connection, 'query', query)
