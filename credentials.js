@@ -11,9 +11,9 @@ module.exports = {
             },
   dbConfig : {
     connectionLimit : 5,
-    host : 'localhost',
+    host : '10.0.0.1',
     user : 'sensibiloper',
-    password : 'gPeisl613^',
+    password : 'test112@',
     database : 'sensibiloper'
   }
 };

@@ -36,18 +36,18 @@ router.get('/', function(req, res, next){
           console.log('category_idx = '+category_idx);
           query = 'select STUDY_IDX, STUDY_SUBJECT, STUDY_COMMENT, STUDY_CONTENT from BLOG_STUDY '+
                   'where category_idx ='+mysql.escape(category_idx)+
-                  ' LIMIT '+page+', '+page_block;
+                  ' ORDER BY STUDY_IDX DESC LIMIT '+page+', '+page_block;
       }else{
         if(!div_idx){
           console.log("all");
-          query = 'select STUDY_IDX, STUDY_SUBJECT, STUDY_COMMENT, STUDY_CONTENT from BLOG_STUDY LIMIT '+page+', '+page_block;
+          query = 'select STUDY_IDX, STUDY_SUBJECT, STUDY_COMMENT, STUDY_CONTENT from BLOG_STUDY  ORDER BY STUDY_IDX DESC LIMIT '+page+', '+page_block;
         }else{
           console.log('all div');
           query = 'select STUDY_IDX, STUDY_SUBJECT, STUDY_COMMENT, STUDY_CONTENT from BLOG_STUDY ' +
                   'where category_idx in (' +
                     'select category_idx from blog_study_category where div_idx ='+
                       mysql.escape(div_idx)+') '+
-                  'LIMIT '+page+', '+page_block;
+                  'ORDER BY STUDY_IDX DESC LIMIT '+page+', '+page_block;
         }
       }
       console.log(query);

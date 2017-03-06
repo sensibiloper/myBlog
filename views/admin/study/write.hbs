@@ -36,7 +36,57 @@
     </div>
     <br>
     <div class="row">
-      <textarea class="form-control" name="STUDY_CONTENT" rows="6">{{data.STUDY_CONTENT}}</textarea>
+      <textarea class="form-control" name="STUDY_CONTENT" rows="10">
+        {{#if data.UPDATE}}
+        {{data.STUDY_CONTENT}}
+        {{else}}
+        <ul class="list-unstyled">
+            <li><strong>form 1 :</strong> some text</li>
+            <li><strong>form 2:</strong> some text</li>
+            <li><strong>Languages:</strong> some text</li>
+        </ul>
+
+        <div class="code-block">
+          <pre>
+            <code class="language-markup">
+              &ltp class="my-style"&gt
+                HTML style
+              &lt/p&gt
+           </code>
+         </pre>
+       </div>
+
+       <div class="code-block">
+        <pre>
+          <code class="language-css">
+            /*
+             * CSS style
+            */
+            body {
+              font-family: 'Lato', arial, sans-serif;
+              color: #444444;
+              font-size: 16px;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+            }
+          </code>
+        </pre>
+      </div>
+
+      <div class="code-block">
+        <pre>
+          <code class="language-javascript">
+            if( awesome ){
+                console.log('javascript style');
+            }else{
+                $('body').addClass('give-me-awesome');
+            }
+          </code>
+        </pre>
+      </div>
+
+      {{/if}}
+      </textarea>
     </div>
     <hr>
     <div>

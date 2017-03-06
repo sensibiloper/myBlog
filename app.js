@@ -14,6 +14,7 @@ console.log(credentials.session.secret);
 var index = require('./routes/index');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
+var study = require('./routes/study');
 var api = require('./routes/api');
 
 var app = express();
@@ -48,6 +49,7 @@ app.use(function(req, res, next){
 app.use('/', index);
 app.use('/users', users);
 app.use('/admin', admin);
+app.use('/study', study);
 app.use('/login', require('./routes/login'));
 app.use('/api', api);
 
