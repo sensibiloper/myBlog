@@ -15,5 +15,12 @@ module.exports = {
     user : 'sensibiloper',
     password : 'test112@',
     database : 'sensibiloper'
+            },
+  testDbConfig : {
+    connectionLimit : 5,
+    host : 'localhost',
+    user : 'root',
+    password : '1234',
+    database : 'blog'
   }
 };
