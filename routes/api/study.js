@@ -13,7 +13,6 @@ router.get('/', function(req, res, next){
     Q.ninvoke(connection, 'query', query)
     .then(function(result){
       values.div = result[0];
-      console.log(values.div[0].DIV_NAME);
       res.render("nav/study",{div : values.div});
       connection.release();
     })

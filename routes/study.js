@@ -11,7 +11,7 @@ var Q = require('q');
 router.get('/:idx', function(req, res){
   Q.ninvoke(pool, 'getConnection')
   .then(function(connection){
-    var query = 'select * from blog_study where STUDY_IDX = '+mysql.escape(req.params.idx);
+    var query = 'select * from BLOG_STUDY where STUDY_IDX = '+mysql.escape(req.params.idx);
     Q.ninvoke(connection, 'query', query)
     .then(function(result){
       console.log(result[0][0]);

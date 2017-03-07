@@ -10,8 +10,8 @@ var mysql = db.mysql;
 router.get('/', function(req, res, next) {
   Q.ninvoke(pool, 'getConnection')
   .then(function(connection){
-    var query = 'select home_subject, home_text, DATE_FORMAT(home_cd, "%Y-%c-%e %r")as home_cd,'
-                +'DATE_FORMAT(home_fd, "%Y-%c-%e %r")as home_fd from BLOG_HOME';
+    var query = 'select HOME_SUBJECT, HOME_TEXT, DATE_FORMAT(HOME_CD, "%Y-%c-%e %r")as HOME_CD,'
+                +'DATE_FORMAT(HOME_FD, "%Y-%c-%e %r")as HOME_FD from BLOG_HOME';
     Q.ninvoke(connection, 'query', query)
     .then(function(result){
       var subject = result[0][0].home_subject;
